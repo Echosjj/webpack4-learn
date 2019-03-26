@@ -16,7 +16,7 @@ const devWebpackConfig = merge(baseConfig, {
     port: 3824,
     host: 'localhost',
     overlay: true,
-    compress: false //服务器返回浏览器的时候是否要gzip压缩
+    compress: false, //服务器返回浏览器的时候是否要gzip压缩
   },
   watchOptions: {
     ignored: /node-modules/, //忽略不用监听变更的目录

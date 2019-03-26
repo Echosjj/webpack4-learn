@@ -40,10 +40,14 @@
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.3",
     "webpack-merge": "^4.1.2",
-    "webpack-parallel-uglify-plugin": "^1.1.0"
+    "webpack-parallel-uglify-plugin": "^1.1.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "autoprefixer": "^9.4.8"
   },
   "dependencies": {
     "jquery": "^3.3.1",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "vue": "^2.6.10"
   }
 }

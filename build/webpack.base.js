@@ -66,6 +66,12 @@ module.exports = {
         include: [resolve('src')],
         exclude: /node_modules/
       },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        include: [resolve('src')],
+        exclude: /node-modules/
+      },
       {//url-laoder是增强版的file-loader，不相互依赖
         test: /\.(jpeg|jpg|png|gif)$/,
         use: [

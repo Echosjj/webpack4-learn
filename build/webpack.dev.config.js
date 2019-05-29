@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin') 
 const webpack = require('webpack')
-const baseConfig = require('./webpack.base')
+const baseConfig = require('./webpack.base.config')
 const merge = require('webpack-merge')
 
 const devWebpackConfig = merge(baseConfig, {
@@ -25,23 +25,23 @@ const devWebpackConfig = merge(baseConfig, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', 'src', 'index.html'),
+      template: path.resolve(__dirname, '..', 'src/index', 'index.html'),
       filename: 'index.html',
       chunks:['index', 'common'],
       vendor: './vendor.dll.js', //与dll配置文件中的output filename保持一致
       hash: true, //防止缓存
       minify: {
-        removeAttributeQuotes: true //压缩，去掉引号
+        removeAttributeQuotes: false //压缩，去掉引号
       }
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', 'src', 'index.html'),
+      template: path.resolve(__dirname, '..', 'src/page', 'page.html'),
       filename: 'page.html',
       chunks: ['page', 'common'],
       vendor: './vendor.dll.js',
       hash: true,
       minify: {
-        removeAttributeQuotes: true 
+        removeAttributeQuotes: false
       }
     }),
     new webpack.DllReferencePlugin({// 提高打包速度

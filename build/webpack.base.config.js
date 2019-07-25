@@ -24,23 +24,35 @@ function assetsPath(_path_){
 }
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
-  entry: {
-    index: './src/index.js',
-    page: './src/page.js'
+  context: path.resolve(__dirname, '../'), //上下文
+  entry: {                                 //入口文件
+    index: './src/index/index.js',
+    page: './src/page/page.js'
   },
-  output: {
+  output: {                                //输出文件
     path: resolve('dist'),
-    filename: '[name].[hash].js'
+    filename: '[name]/[name].[hash].js'
   },
-  resolve: {
+  resolve: {                               //别名
     extensions: ['.js', '.css', '.json'],
     alias: {
       '@': path.resolve(__dirname, 'src')
     } //配置别名加快webpack查找模块速度
   },
-  module: {
+  module: {                                //模块- loader
     rules: [
+      // {
+      //   test: /\.html$/,
+      //   use: [
+      //     {
+      //       loader: 'html-loader', //为了加载html中的script标签， 但是与html-webapck-plugin冲突，改用<%= require()%>引入图片
+      //       options: {
+      //         attrs: ['img:src', 'img:data-src', 'audio:src'], 
+      //         minimize: true 
+      //       }
+      //     }
+      //   ]
+      // },
         // 从右往左开始转义
       {
         test: /\.css$/,
@@ -79,7 +91,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: assetsPath('image/[name].[hash:7].[ext]'),
-              limit: 10000
+              limit: 10000,
             }
           }
         ]
@@ -102,10 +114,10 @@ module.exports = {
       }
     ]
   },
-  optimization: {
+  optimization: { //全新的通用分块策略common chunks strategy拆分    （内置优化）
     splitChunks: {
-      cacheGroups: {
-        commons: {
+      cacheGroups: { //缓存组
+        commons: { // 创建一个所有入口文件都有引用的代码 common 块
           chunks: 'initial',
           name: 'common',
           minChunks: 2,
@@ -115,17 +127,17 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    new happyPack({
+  plugins: [                                       //插件
+    new happyPack({ //采用多进程提高编译速度
       id: 'happy-babel-js',
       loaders: ['babel-loader?cacheDirectory=true'],
       threadPool:happyThreadPool 
     }),
-    new MiniCssExtractplugin({
+    new MiniCssExtractplugin({  //压缩css文件
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
-    new ProgressBarPlugin({
+    new ProgressBarPlugin({     //编译过程显示进度
       format: 'build[:bar]' + chalk.green.bold(':percent') + '(:elapsed seconds)'
     }),
   ]

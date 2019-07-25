@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin') // 复制静态资源�
 const CleanWebpackPlugin = require('clean-webpack-plugin') // 清空打包目录的插件
 const HtmlWebpackPlugin = require('html-webpack-plugin') // 生成html的插件
 const webpack = require('webpack')
-const baseConfig = require('./webpack.base')
+const baseConfig = require('./webpack.base.config')
 const merge = require('webpack-merge')
 
 const glob = require('glob')
@@ -20,23 +20,23 @@ module.exports = merge(baseConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', 'src', 'index.html'),
+            template: path.resolve(__dirname, '..', 'src/index', 'index.html'),
             filename:'index.html',
             chunks:['index', 'common'],
             vendor: './vendor.dll.js',
             hash:true,//防止缓存
             minify:{
-                removeAttributeQuotes:true//压缩 去掉引号
+                removeAttributeQuotes:false//压缩 去掉引号
             }
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', 'src', 'page.html'),
+            template: path.resolve(__dirname, '..', 'src/page', 'page.html'),
             filename:'page.html',
             chunks:['page', 'common'],
             vendor: './vendor.dll.js',
             hash:true,//防止缓存
             minify:{
-                removeAttributeQuotes:true//压缩 去掉引号
+                removeAttributeQuotes:false//压缩 去掉引号
             }
         }),
         new CopyWebpackPlugin([
@@ -49,14 +49,14 @@ module.exports = merge(baseConfig, {
         new CleanWebpackPlugin(['dist'], {
             root: path.join(__dirname, '..'),
             exclude: ['manifest.json', 'vendor.dll.js'],
-            verbose: true,
+            verbose: true,  
             dry:  false
         }),
         new OptimizeCSSPlugin({
             cssProcessorOptions: {safe: true}
         }),
         new PurifyCSSPlugin({
-            paths: glob.sync(path.join(__dirname, '../src/*.html'))
+            paths: glob.sync(path.join(__dirname, '../src/**/*.html'))
         }),
         // new WebpackParallelUglifyPlugin({
         //     uglifyJS: {

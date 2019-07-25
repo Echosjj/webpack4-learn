@@ -1,4 +1,5 @@
 
+"use strict"
 // import './page.scss'
 require('./page.scss')
 import $ from 'jquery'

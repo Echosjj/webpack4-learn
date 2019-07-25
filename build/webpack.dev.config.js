@@ -35,11 +35,7 @@ const devWebpackConfig = merge(baseConfig, {
       }
     }),
     new HtmlWebpackPlugin({
-<<<<<<< HEAD
-      template: path.resolve(__dirname, '..', 'src', 'page.html'),
-=======
       template: path.resolve(__dirname, '..', 'src/page', 'page.html'),
->>>>>>> a4c4daea4b73e327a6cdacef73af1a7dd3e6f9d5
       filename: 'page.html',
       chunks: ['page', 'common'],
       vendor: './vendor.dll.js',

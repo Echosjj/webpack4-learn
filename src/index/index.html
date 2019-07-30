@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no,email=no">
     <title>Document</title>
+    <script src="../../static/js/viewport-units-buggyfill.hacks.min.js"></script>
+    <script src="../../static/js/viewport-units-buggyfill.min.js"></script>
 </head>
 <body>
     <h1>vue-webpack4 test</h1>
@@ -13,8 +15,16 @@
         <div class="test-image"></div>
         <img src="<%= require('../assets/images/webpack.png') %>"/> 
     </div>
+    <script>
+        window.onload = function() {
+            window.viewportUnitsBuggyfill.init({ hacks: window.viewportUnitsBuggyfillHacks })
+        }
+    </script>
     <script src="<%= htmlWebpackPlugin.options.vendor %>"></script>
+   
+    
 </body>
+
 </html>
 
 
